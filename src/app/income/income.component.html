@@ -1,0 +1,74 @@
+<div class="navbar">
+    <h2>INCOME</h2>
+</div>
+<div class="main-container">
+    <div class="container">
+        <h2>Income</h2>
+        <form [formGroup]="incomeForm" (ngSubmit)="onSubmit()" class="input-form">
+            <div class="form-group">
+                <select id="month" formControlName="month" class="form-control" (change)="onChange($event)">
+                    <option value="" disabled>Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                </select>
+            </div>
+            <div class="form-group"></div>
+            <div class="total-income">
+                Total Income for {{selectedMonth}}: ${{calculateTotalIncome(selectedMonth)}}
+            </div>
+            <div class="form-group">
+                <label for="investments">Investments:</label>
+                <select id="investments" formControlName="investments" class="form-control"
+                    [class.disabled-dropdown]="!monthSelected">
+                    <option value="" disabled>Select investments</option>
+                    <option value="401(k)">401(k)</option>
+                    <option value="Stocks">Stocks</option>
+                    <option value="Real Estate">Real Estate</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="source">Source of Income:</label>
+                <select id="source" formControlName="source" class="form-control"
+                    [class.disabled-dropdown]="!monthSelected">
+                    <option value="" disabled>Select Source</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Freelancing">Freelancing</option>
+                    <option value="Rental Income">Rental Income</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input matInput type="number" formControlName="amount" id="amount" class="form-control"
+                    placeholder="Enter amount" [class.disabled-dropdown]="!monthSelected">
+            </div>
+            <button type="submit" [class.disabled-dropdown]="!monthSelected" mat-flat-button>Add</button>
+        </form>
+        <hr>
+        <h3>Income List - {{selectedMonth}}</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Source of Income</th>
+                    <th>Amount</th>
+                    <th>Investments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (income of getFilteredIncomes(); track $index) {
+                <tr>
+                    <td>{{income.source}}</td>
+                    <td>{{income.amount}}</td>
+                    <td>{{income.investments}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="input-form">
+            <button mat-flat-button (click)="onBack()">Back</button>
+            <div class="form-group"></div>
+            <button mat-flat-button (click)="saveForm()">Save</button>
+
+        </div>
+    </div>
+</div>
