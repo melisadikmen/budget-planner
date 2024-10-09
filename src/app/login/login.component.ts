@@ -51,5 +51,4 @@ export class LoginComponent {
       this.snackBar.open('Please fill in all fields correctly!', 'CLose', { duration: 3000 });
     }
   }
-
 }
